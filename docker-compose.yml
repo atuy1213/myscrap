@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+
+  api:
+    image: golang:1.19-alpine
+    container_name: myscrap-api
+    working_dir: /go/src
+    command: go run main.go
+    environment:
+      - MYSCRAP_ENV=dev
+    volumes:
+      - ./myscrap-api:/go/src
+    ports:
+      - 8080:8080
+    # depends_on: 
+    #   - db
+    #   - redis
+    # restart: always
+
+  db:
+    image: postgres:latest
+    container_name: myscrap-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_ROOT_PASSWORD: password
+      POSTGRES_USER: myscrap-user
+      POSTGRES_PASSWORD: myscrap-password
+      POSTGRES_DB: myscrap
+    # volumes:
+    #   - ./build/src:/home/pay-per-day-user/src
+    #   - ./build/docker/config/my.cnf:/etc/mysql/conf.d/my.cnf
+    #   - ./build/docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

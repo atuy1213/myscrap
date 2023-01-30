@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+
+  db:
+    image: mysql:latest
+    container_name: payperday-db
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: pay-per-day-user
+      MYSQL_PASSWORD: pay-per-day-password
+      MYSQL_DATABASE: pay-per-day
+    volumes:
+      - ./build/src:/home/pay-per-day-user/src
+      - ./build/docker/config/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./build/docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  redis:
+    container_name: payperday-redis
+    image: redis:latest
+    ports:
+      - 6379:6379
