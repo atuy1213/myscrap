@@ -11,8 +11,8 @@ type AuthenticatorInterface interface {
 	Withdraw(userID string) error
 }
 
-type MyscrapClipperInterface interface {
-	ClipArticle(ctx *context.Context, userID, URL string) error
+type ClipperInterface interface {
+	ClipArticle(ctx *context.Context, userID, URL string) (*model.Article, error)
 	ClipArticles(userID string, URLs []string) error
 }
 

@@ -13,5 +13,8 @@ func main() {
 	authenticationController := di.InjectAuthenticationController()
 	http.HandleFunc("/signup", authenticationController.Signup)
 
+	clipController := di.InjectClipController()
+	http.HandleFunc("/clip", clipController.ClipArticle)
+
 	http.ListenAndServe(":8080", nil)
 }

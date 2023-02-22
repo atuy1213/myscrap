@@ -48,8 +48,24 @@ func InjectAuthenticator() domain.AuthenticatorInterface {
 	)
 }
 
+func InjectClipper() domain.ClipperInterface {
+	return usecase.NewClipper(
+		InjectDB(),
+		InjectArticleRepository(),
+		InjectTimeUtil(),
+	)
+}
+
 // inject controller
 
 func InjectAuthenticationController() usecase.AuthenticationControllerInterface {
-	return controller.NewAuthenticationController(InjectAuthenticator())
+	return controller.NewAuthenticationController(
+		InjectAuthenticator(),
+	)
+}
+
+func InjectClipController() usecase.ClipControllerInteface {
+	return controller.NewClipController(
+		InjectClipper(),
+	)
 }
