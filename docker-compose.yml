@@ -10,13 +10,12 @@ services:
     environment:
       - MYSCRAP_ENV=dev
     volumes:
-      - ./myscrap-api:/go/src
+      - ./:/go/src
     ports:
       - 8080:8080
-    # depends_on: 
-    #   - db
-    #   - redis
-    # restart: always
+    depends_on: 
+      - db
+    restart: always
 
   db:
     image: postgres:latest
@@ -28,7 +27,6 @@ services:
       POSTGRES_USER: myscrap-user
       POSTGRES_PASSWORD: myscrap-password
       POSTGRES_DB: myscrap
-    # volumes:
-    #   - ./build/src:/home/pay-per-day-user/src
-    #   - ./build/docker/config/my.cnf:/etc/mysql/conf.d/my.cnf
-    #   - ./build/docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    volumes:
+      - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  #   - ./build/docker/config/my.cnf:/etc/mysql/conf.d/my.cnf

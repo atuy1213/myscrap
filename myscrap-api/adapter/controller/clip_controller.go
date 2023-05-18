@@ -28,18 +28,15 @@ func (u *ClipController) ClipArticle(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 
-	var input *input.ClipArticleInput
-	bt, _ := io.ReadAll(r.Body)
-	fmt.Println(string(bt))
-	fmt.Println()
+	var input input.ClipArticleInput
 	dec := json.NewDecoder(r.Body)
-	if err := dec.Decode(input); err != nil {
+	bytes, _ := io.ReadAll(r.Body)
+	fmt.Println(string(bytes))
+	if err := dec.Decode(&input); err != nil {
 		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
-	fmt.Println(input)
 
 	article, err := u.clipper.ClipArticle(&ctx, "", "")
 	if err != nil {

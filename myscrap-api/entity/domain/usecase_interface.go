@@ -2,8 +2,6 @@ package domain
 
 import (
 	"context"
-
-	"github.com/atuy1213/myscrap/myscrap-api/entity/model"
 )
 
 type AuthenticatorInterface interface {
